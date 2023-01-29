@@ -1,24 +1,19 @@
-tickets = int(input("Сколько билетов вы хотите приобрести? "))
-people = tickets
-money = 0
+spisok = input("Пожалуйста, введите последовательность чисел через пробел: ")
+spisok_list = [int(a) for a in spisok.split()]
+user_num = int(input("Пожалуйста, введите любое число: "))
 
-while people != 0:
-    age_for_ticket = int(input(f'Возраст зрителя для билета номер {people}? '))
-    if age_for_ticket < 18:
-        print('Для посетителя конференции возрастом менее 18 лет билет бесплатный.')
+if user_num % 1 == 0:
+    spisok_list.append(user_num)
+    print("Список до сортировки:", spisok_list)
 
-    elif 25 > age_for_ticket >= 18:
-        money = money + 990
-        print('Стоимость данного билета: 990 руб.')
+def my_sort(spisok_list):
+    for i in range(len(spisok_list)):
+        i_min = i
+        for j in range(i, len(spisok_list)):
+            if spisok_list[j] < spisok_list[i_min]:
+                i_min = j
+        if i != i_min:
+            spisok_list[i], spisok_list[i_min] = spisok_list[i_min], spisok_list[i]
+    return spisok_list
 
-    else:
-        money = money + 1390
-        print('Стоимость данного билета: 1390 руб.')
-    people = people - 1
-
-if tickets > 3:
-    sale = money - (money / 10)
-    print(f'Итоговая сумма к оплате {sale} руб., так как применена скидка за покупку более 3 билетов в размере 10%')
-
-else:
-    print(f'Итоговая сумма к оплате {money} руб.')
+print("Список после сортировки:", my_sort(spisok_list))
